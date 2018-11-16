@@ -1,4 +1,5 @@
 from flask import Flask, jsonify, request
+import json
 import requests
 import indeed_request
 app = Flask(__name__)
@@ -15,10 +16,23 @@ def hello():
         jsonified_string = jsonify(response_list)
         return jsonified_string
     if request.method == 'POST':
-        query = request.form.get('query')
+        # query = request.form.get('search')
+        # query=request.data.decode("utf-8", "replace")
+        query = request.data
+        query = json.loads(query)
+        query = query['search']
         response_list = indeed_request.retrieve_indeed(query)
         jsonified_string = jsonify(response_list)
-        return jsonified_string
+        jsonified_string.headers.add('Access-Control-Allow-Origin', '*')
+        # jsonified_string.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization')
+        jsonified_string.headers.add('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS')
+        jsonified_string.headers["Content-Type"] = "application/json"
+        # return jsonified_string
+        return app.response_class(
+            response=json.dumps(response_list),
+            status=200,
+            mimetype='application/json'
+        )
 
 if __name__ == "__main__":
     app.run(debug=True)
