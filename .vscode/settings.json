@@ -1,0 +1,4 @@
+{
+	"python.pythonPath": "C:\\Users\\Copy\\Miniconda3\\envs\\flaskpy37\\python.exe",
+	"terminal.integrated.shellArgs.windows": ["/K", "CALL conda info --env"]
+}

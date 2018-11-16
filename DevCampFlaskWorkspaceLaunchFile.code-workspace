@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"terminal.integrated.shellArgs.windows": [
+			"/K",
+			"CALL conda info --env"
+		]
+	}
+}
