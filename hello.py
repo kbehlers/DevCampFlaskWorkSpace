@@ -3,27 +3,19 @@ import requests
 import indeed_request
 app = Flask(__name__)
 
-@app.route('/jobs', methods=["GET","POST"])
+@app.route('/jobs', methods=["GET"])
 def hello():
-    def returned_data(data):
-        return data
-    Data = returned_data("Hey")
-    if request.method == 'GET':
-        # response_dict = indeed_request.parse_indeed('output.txt')
-        # jsonified_string = jsonify(response_dict)
-        # return jsonified_string
-        query = request.args.get('query', '')
-        print(query)
-        response_list = indeed_request.retrieve_indeed(query)
-        jsonified_string = jsonify(response_list)
-        return jsonified_string
-    if request.method == 'POST':
-        
-        return "Hello"
-        # query = request.form.get('query')
-        # response_list = indeed_request.retrieve_indeed(query)
-        # jsonified_string = jsonify(response_list)
-        # return jsonified_string
+    #Example: localhost:5000/jobs?search=junior
+    #Retrieve url encoded arg 'search' from request
+    query = request.args.get('search', '')
+
+    #Store result of call to retrive_indeed function. Imported from indeed_request.py
+    response_list = indeed_request.retrieve_indeed(query)
+
+    #Use Flask's jsonify to prepare a response
+    jsonified_string = jsonify(response_list)
+    #Return JSON formatted jobs list of objects
+    return jsonified_string
 
 if __name__ == "__main__":
     app.run(debug=True)
