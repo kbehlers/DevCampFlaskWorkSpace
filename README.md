@@ -18,8 +18,7 @@ Also Python requests library example
 
 >`headers = {`
 >    `'Content-Type': "application/json",`
->    `'cache-control': "no-cache",`
->    `'Postman-Token': "cfc52c00-fc14-4375-9b73-8f54a574a7ac"`
+>    `'cache-control': "no-cache"`
 >    `}`
 
 >`response = requests.request("GET", url, headers=headers, params=querystring)`
